@@ -2,9 +2,10 @@
 library(shiny)
 library(ggplot2)
 
-# Define UI
+#Define UI
 ui <- fluidPage(
   titlePanel("Negative Binomial Distribution"),
+
   
   sidebarLayout(
     sidebarPanel(
@@ -25,7 +26,7 @@ server <- function(input, output) {
     p <- input$p
     
     # Generate sequence of number of failures
-    failures <- 0:25
+    failures <- 0:100
     
     # Calculate PMF of negative binomial distribution
     pmf <- dnbinom(failures, size = k, prob = p)
@@ -41,6 +42,8 @@ server <- function(input, output) {
       ggtitle("Negative Binomial Distribution")
   })
 }
+
+  
 
 # Run the application
 shinyApp(ui = ui, server = server)
