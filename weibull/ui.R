@@ -3,7 +3,7 @@ library(ggplot2)
 
 # Define UI
 ui <- fluidPage(
-  titlePanel("Wind Speed Weibull Distribution"),
+  titlePanel("Weibull Distribution"),
   
   sidebarLayout(
     sidebarPanel(
