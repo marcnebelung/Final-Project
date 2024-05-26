@@ -7,12 +7,16 @@ ui <- fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-      sliderInput("shape", "Shape Parameter (k):", min = 0.1, max = 5, value = 1, step = 0.1),
-      sliderInput("scale", "Scale Parameter (λ):", min = 0.1, max = 50, value = 10, step = 0.1)
+      sliderInput("shape", "Shape Parameter (k):", min = 0, max = 10, value = 1, step = 0.1),
+      sliderInput("scale", "Scale Parameter (λ):", min = 0, max = 10, value = 1, step = 0.1)
     ),
     
     mainPanel(
-      plotOutput("weibullPlot")
+      plotOutput("weibullPlot"),
+      h2(style = "font-size: 20px;", textOutput("subtitle")),
+      textOutput("shapeParam"),
+      textOutput("scaleParam"),
+      plotOutput("fitted_data")
     )
   )
 )

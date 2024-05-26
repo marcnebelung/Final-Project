@@ -14,9 +14,29 @@ data[['Wind.Speed..m.s.']] <- NULL
 data$wind_speed <- replace(data$wind_speed, data$wind_speed==0, mean(data$wind_speed))
 
 output$weibullPlot <- renderPlot({
+  
+  x <- seq(0, 10, length.out = 100)
+  y <- dweibull(x, shape = input$shape, scale = input$scale)
+  
+  ggplot(data = data.frame(x = x, y = y), aes(x = x, y = y)) +
+    geom_point() +
+    geom_line() +
+    labs(x = "x", y = "Density", title = "Weibull Distribution Plot")
+})
+
+fit <- fitdist(data$wind_speed, "weibull")
+
+output$shapeParam <- renderText({
+  paste("Shape Parameter:", round(fit$estimate["shape"], 2))
+})
+
+output$scaleParam <- renderText({
+  paste("Scale Parameter:", round(fit$estimate["scale"], 2))
+})
+
+output$fitted_data <- renderPlot({
     
     # Fit Weibull distribution
-    fit <- fitdist(data$wind_speed, "weibull")
     x <- seq(0, max(data$wind_speed), length.out = 100)
     y <- dweibull(x, shape = fit$estimate["shape"], scale = fit$estimate["scale"])
     
@@ -35,5 +55,9 @@ output$weibullPlot <- renderPlot({
       annotate("text", x = 15, y = 0.075, label = "Blue Shade: Density Histogram") +
       annotate("text", x = 15, y = 0.07, label = "Red Line: Density Plot") +
       annotate("text", x = 15, y = 0.08, label = "Black Line: Fitted Weibull")
-  })
+      })
+
+output$subtitle <- renderText({
+  "Example Weibull Distribution Fitted To Wind Speed Data"
+})
 }
