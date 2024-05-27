@@ -13,7 +13,9 @@ fluidPage(
     ),
     
     mainPanel(
-      plotOutput("plot")
+      plotOutput("plot"),
+      h2(style = "font-size: 20px;", textOutput("subtitle")),
+      plotOutput("fitted_dist")
     )
   )
 )

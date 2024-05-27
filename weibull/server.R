@@ -3,7 +3,6 @@ library(shiny)
 library(ggplot2)
 library(fitdistrplus)
 
-
 # Define server logic
 server <- function(input, output) {
   
@@ -11,7 +10,7 @@ data <- read.csv("wind_data.csv")
 data$wind_speed <- data[['Wind.Speed..m.s.']]
 data[['Wind.Speed..m.s.']] <- NULL
 
-data$wind_speed <- replace(data$wind_speed, data$wind_speed==0, mean(data$wind_speed))
+data$wind_speed <- replace(data$wind_speed, data$wind_speed==0, median(data$wind_speed))
 
 output$weibullPlot <- renderPlot({
   
